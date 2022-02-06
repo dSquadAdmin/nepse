@@ -43,6 +43,6 @@ jobs:
       - name: Push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Files updated
+          commit_message: Data up to ${{ github.event.inputs.end }}
           commit_user_name: dSquadAdmin
           commit_user_email: dSquadAdmin@users.noreply.github.com

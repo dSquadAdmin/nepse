@@ -1,4 +1,4 @@
-name: Auto Pull Data For Today
+name: Auto Pull Data For Single Day
 
 on:
   schedule:
@@ -26,12 +26,9 @@ jobs:
         run: |
           python main.py $(date '+%Y-%m-%d') $(date '+%Y-%m-%d')
   
-      - name: Commit and Push Files
-        run: |
-          git config --global user.name 'dSquadAdmin'
-          git config --global user.email 'dSquadAdmin@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git checkout "${GITHUB_REF:11}"
-          git add .
-          git commit -am "Data updated"
-          git push
+      - name: Push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Data for $(date '+%Y-%m-%d')
+          commit_user_name: dSquadAdmin
+          commit_user_email: dSquadAdmin@users.noreply.github.com
