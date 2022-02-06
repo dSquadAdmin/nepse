@@ -85,5 +85,6 @@ for date in dates:
     t = myThread(day=dt)
     t.start()
     threads.append(t)
+
 for t in threads:
     t.join()

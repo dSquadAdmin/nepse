@@ -24,11 +24,12 @@ jobs:
       
       - name: Execute Script
         run: |
+          chmod 777 ./data -R
           python main.py $(date '+%Y-%m-%d') $(date '+%Y-%m-%d')
   
       - name: Push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Data for $(date '+%Y-%m-%d')
+          commit_message: Data for today
           commit_user_name: dSquadAdmin
           commit_user_email: dSquadAdmin@users.noreply.github.com

@@ -35,7 +35,6 @@ jobs:
         run: |
           chmod 777 ./data -R
           python main.py ${START_DATE} ${END_DATE}
-          ls -al ./data/2022
         env:
           START_DATE: ${{ github.event.inputs.start }}
           END_DATE: ${{ github.event.inputs.end }}
