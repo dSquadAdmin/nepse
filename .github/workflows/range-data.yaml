@@ -34,6 +34,7 @@ jobs:
       - name: Execute Script and Push
         run: |
           python main.py ${START_DATE} ${END_DATE}
+          ls -al ./data/2022
         env:
           START_DATE: ${{ github.event.inputs.start }}
           END_DATE: ${{ github.event.inputs.end }}
