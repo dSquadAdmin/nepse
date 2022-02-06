@@ -1,16 +1,26 @@
 # Importing the required modules
 from random import random
+import threading
 from time import sleep
 import pandas as pd
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import sys
-import _thread
+
+
+class myThread (threading.Thread):
+    def __init__(self, day):
+        threading.Thread.__init__(self)
+        self.day = day
+
+    def run(self):
+        print(f"Starting Data Extraction for {self.day} ")
+        extract_data(self.day)
+        print(f"Done Extraction for {self.day}")
 
 
 def extract_data(day):
     url = f'http://nepalstock.com/todaysprice?_limit=500&startDate={day}'
-    print(f'Data for day: {day}, URL: {url}')
     year = day.split('-')[0]
     data = []
 
@@ -69,7 +79,11 @@ if len(dates) == 0:
     print(f'Date Range {sys.argv[1]} to {sys.argv[2]} is invalid!')
     exit(-1)
 
+threads = []
 for date in dates:
     dt = f"{date:%Y-%m-%d}"
-    _thread.start_new_thread(extract_data, (dt,))
-    sleep(0.5)
+    t = myThread(day=dt)
+    t.start()
+    threads.append(t)
+for t in threads:
+    t.join()
