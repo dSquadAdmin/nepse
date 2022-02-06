@@ -33,6 +33,7 @@ jobs:
       
       - name: Execute Script and Push
         run: |
+          chmod 777 ./data -R
           python main.py ${START_DATE} ${END_DATE}
           ls -al ./data/2022
         env:
